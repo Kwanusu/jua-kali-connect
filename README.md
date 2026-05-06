@@ -81,12 +81,12 @@ jua-kali-connect/
 
 ## Installation & Setup
 
-```bash
+<!-- ```bash
 git clone https://github.com/Kwanusu/jua-kali-connect.git
 
 cd jua-kali-connect
 ```
-Open `index.html` in any modern browser and view your site
+Open `index.html` in any modern browser and view your site -->
 
 ### Prerequisites
 
@@ -209,10 +209,10 @@ This project is licensed under the MIT License.
 
 ## Author
 
-**Your Name**
+**Joseph Kwanusu**
 
-* GitHub: [https://github.com/your-username](https://github.com/your-username)
-* Email: your-email@example.com
+* GitHub: [https://github.com/Kwanusu](https://github.com/Kwanusu)
+* Email: kwanusujoseph@gmail.com
 
 ## Vision
 
