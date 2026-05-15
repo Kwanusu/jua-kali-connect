@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering HTML: The Complete Student Guide</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; max-width: 900px; margin: auto; padding: 20px; color: #333; }
+        header { background: #2c3e50; color: white; padding: 25px; border-radius: 8px; margin-bottom: 30px; text-align: center; }
+        section { border: 1px solid #e1e4e8; padding: 25px; margin-bottom: 25px; border-radius: 8px; background: #fff; }
+        h2 { color: #2980b9; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
+        h3 { color: #16a085; }
+        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f8f9fa; font-weight: bold; }
+        code { background: #f4f4f4; padding: 2px 5px; border-radius: 3px; font-family: monospace; }
+        fieldset { border: 2px solid #3498db; padding: 20px; border-radius: 8px; background: #fdfdfd; }
+        legend { font-weight: bold; color: #2c3e50; padding: 0 10px; font-size: 1.2rem; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        .nav-list { list-style: none; padding: 0; display: flex; justify-content: center; gap: 20px; }
+        .nav-list a { color: #f1c40f; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. SEMANTIC LANDMARKS & ACCESSIBILITY -->
+    <header>
+        <h1>Web Development Masterclass</h1>
+        <nav aria-label="Main Navigation">
+            <ul class="nav-list">
+                <li><a href="#links">Links</a></li>
+                <li><a href="#media">Multimedia</a></li>
+                <li><a href="#tables">Tables</a></li>
+                <li><a href="#forms">Forms & Inputs</a></li>
+                <li><a href="mailto:support@zindua.com">Email Instructor</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 2. LINK MASTERY -->
+        <section id="links">
+            <h2>1. Navigation & Pathing</h2>
+            <p>
+                <strong>Absolute Link:</strong> Points to an external site 
+                <a href="https://www.google.com" target="_blank">Google.com</a>.
+            </p>
+            <p>
+                <strong>Relative Link:</strong> Points to a local project file 
+                <a href="./assets/notes.pdf">Lecture Notes</a>.
+            </p>
+            <p>
+                <strong>Internal Link:</strong> Jumps to a specific element ID 
+                <a href="#specialized">Jump to Date & Color Pickers</a>.
+            </p>
+        </section>
+
+        <!-- 3. MULTIMEDIA & RESPONSIVE ASSETS -->
+        <section id="media">
+            <h2>2. Multimedia & Responsive Graphics</h2>
+            <h3>Responsive Images (srcset)</h3>
+            <p>The browser chooses the best image based on device width[cite: 1].</p>
+            <img src="fallback.jpg" 
+                 srcset="small.jpg 300w, medium.jpg 800w, large.jpg 1200w" 
+                 sizes="(max-width: 600px) 100vw, 50vw" 
+                 alt="Students working on a coding project"[cite: 1]>
+
+            <h3>Image Maps</h3>
+            <img src="assets/images/desk.jpg" 
+                    usemap="#deskmap" 
+                    alt="A home office desk setup" 
+                    width="800" 
+                    height="500">
+
+                <map name="deskmap">
+                    <!-- Rectangular area (x1, y1, x2, y2) -->
+                    <area shape="rect" coords="34,44,270,350" href="assets/images/monitor.html" alt="Monitor">
+                    
+                    <!-- Circular area (x, y, radius) -->
+                    <area shape="circle" coords="337,300,44" href="assets/images/coffee.html" alt="Coffee Cup">
+                </map>
+
+           <!-- 3. MULTIMEDIA & RESPONSIVE ASSETS -->
+
+
+            <h3>Audio & Video Players</h3>
+            <audio controls style="width: 100%; margin-bottom: 10px;">
+                <source src="lecture-audio.mp3" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+
+            <!-- The 'poster' attribute below adds the thumbnail image -->
+            <video width="100%" controls poster="./assets/images/mohammad-rahmani-oXlXu2qukGE-unsplash.jpg">
+                <source src="promo5.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+
+        </section>
+
+        <!-- 4. DATA TABLES -->
+        <section id="tables">
+            <h2>3. Tables & Structured Data</h2>
+            <table>
+                <caption>Weekly Mentorship Schedule</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">TimeSlot</th> <!-- col scope defines column headers -->
+                        <th scope="col">Monday Topic</th>
+                        <th scope="col">Wednesday Topic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">10:00 AM</th> <!-- row scope defines row headers -->
+                        <td>HTML Fundamentals</td>
+                        <td>Advanced CSS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 5. FORMS, VALIDATION, & INTERACTIVE INPUTS -->
+        <section id="forms">
+            <h2>4. Interactive Forms & Validation</h2>
+            <p>This section uses <strong>inline elements</strong> like <code>&lt;code&gt;</code> and <em>&lt;em&gt;</em>.</p>
+
+            <form action="/submit-enrollment" method="POST">
+                <fieldset>
+                    <legend>Student Registration</legend>
+
+                    <div class="form-group">
+                        <label for="fname">Full Name:</label>
+                        <input type="text" id="fname" name="fname" required minlength="4" placeholder="e.g. Joseph Kwanusu">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uemail">Email Address:</label>
+                        <input type="email" id="uemail" name="uemail" required>
+                    </div>
+
+                    <p><strong>Preferred Track:</strong></p>
+                    <input type="radio" id="front" name="track" value="frontend" checked>
+                    <label for="front" style="display:inline;">Frontend</label>
+                    <input type="radio" id="back" name="track" value="backend">
+                    <label for="back" style="display:inline;">Backend</label>
+
+                    <p><strong>Known Languages:</strong></p>
+                    <input type="checkbox" id="html_s" name="skills" value="html">
+                    <label for="html_s" style="display:inline;">HTML</label>
+                    <input type="checkbox" id="css_s" name="skills" value="css">
+                    <label for="css_s" style="display:inline;">CSS</label>
+
+                    <!-- SPECIALIZED INPUTS[cite: 1] -->
+                    <div id="specialized" style="background: #eef7fa; padding: 15px; border-radius: 5px; margin-top: 15px; margin-bottom: 15px;">
+                        <h3>Specialized HTML5 Controls</h3>
+                        
+                        <div class="form-group">
+                            <label for="color">Choose Profile Color:</label>
+                            <input type="color" id="color" name="color" value="#3498db">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="start_date">Cohort Start Date:</label>
+                            <input type="date" id="start_date" name="start_date" min="2026-01-01">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="progress">Prior Experience Level (0-100):</label>
+                            <input type="range" id="progress" name="progress" min="0" max="100" step="5">
+                        </div>
+                    </div>
+
+                    <!-- MULTI-LINE TEXTAREA -->
+                    <div class="form-group">
+                        <label for="comments">Mentorship Goals:</label>
+                        <textarea id="comments" name="comments" rows="5" cols="50" placeholder="Tell us what you hope to achieve..." style="width: 100%; border-radius: 4px; border: 1px solid #ccc;"></textarea>
+                    </div>
+
+                    <button type="submit" style="margin-top:20px; padding: 10px 25px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Submit Application
+                    </button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p style="text-align: center;">&copy; 2026 Zindua School Technical Mentorship</p>
+    </footer>
+
+</body>
+</html>

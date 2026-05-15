@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS Selectors: Live Demonstration</title>
+    <style>
+        /* 1. Universal Selector */
+        /* Applies to everything: resets padding and sets a default font */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body { padding: 40px; background-color: #f0f2f5; line-height: 1.6; }
+
+        /* 2. Element Selector */
+        section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h2 { color: #2c3e50; margin-bottom: 15px; }
+
+        /* 3. Class Selector */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 4px;
+        }
+
+        /* 4. ID Selector */
+        #special-notice {
+            border: 2px dashed #e67e22;
+            padding: 10px;
+            color: #d35400;
+            font-weight: bold;
+        }
+
+        /* 5. Attribute Selector */
+        /* Targets buttons with a specific "data-type" attribute */
+        button[data-type="download"] {
+            background-color: #27ae60;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* 6. Descendant Selector */
+        /* Any span inside an article, no matter how deep */
+        article span { color: #8e44ad; font-style: italic; }
+
+        /* 7. Child Selector */
+        /* Only list items directly inside the container */
+        .container > li { border-left: 4px solid #34495e; padding-left: 10px; list-style: none; }
+
+        /* 8. Adjacent Sibling Selector */
+        /* Targets the p immediately following an h3 */
+        h3 + p { color: #7f8c8d; font-size: 0.9em; }
+
+        /* 9. General Sibling Selector */
+        /* Targets all p tags that follow the .start-here class */
+        .start-here ~ p { color: #c0392b; }
+
+        /* 10. Group Selector */
+        h1, .subtitle { text-align: center; color: #2c3e50; }
+
+        /* 11. Pseudo-Class */
+        .btn-hover:hover { background-color: #2980b9; transform: scale(1.05); transition: 0.3s; }
+
+        /* 12. Pseudo-Element */
+        .quote::before { content: "“"; font-size: 2em; color: #bdc3c7; }
+        .quote::after { content: "”"; font-size: 2em; color: #bdc3c7; }
+    </style>
+</head>
+<body>
+
+    <h1>Mastering Selectors</h1>
+    <p class="subtitle">A visual guide to CSS targetting</p>
+
+    <!-- Basic Selectors -->
+    <section>
+        <h2>Element, Class, and ID</h2>
+        <p>This is a standard element.</p>
+        <div class="status-badge">Class: status-badge</div>
+        <p id="special-notice">ID: special-notice</p>
+    </section>
+
+    <!-- Attributes -->
+    <section>
+        <h2>Attribute Selector</h2>
+        <button data-type="download">Download File</button>
+        <button>Normal Button</button>
+    </section>
+
+    <!-- Combinators -->
+    <section>
+        <h2>Hierarchy & Combinators</h2>
+        <article>
+            <p>This is a <span>descendant span</span> inside an article.</p>
+        </article>
+
+        <ul class="container">
+            <li>Direct Child 1</li>
+            <li>Direct Child 2
+                <ul>
+                    <li>Nested (Not a direct child of .container)</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Siblings -->
+    <section>
+        <h2>Sibling Selectors</h2>
+        <h3>Reference Heading</h3>
+        <p>This paragraph is an Adjacent Sibling (+).</p>
+        
+        <div class="start-here">Reference Point</div>
+        <p>General Sibling (~)</p>
+        <p>Another General Sibling (~)</p>
+    </section>
+
+    <!-- Interaction & Content -->
+    <section>
+        <h2>States & Decoration</h2>
+        <button class="status-badge btn-hover">Hover over me (Pseudo-class)</button>
+        <br><br>
+        <p class="quote">This text is wrapped in generated quotes using Pseudo-elements.</p>
+    </section>
+
+</body>
+</html>

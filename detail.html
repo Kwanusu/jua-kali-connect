@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechVision | Enterprise Architecture & Fullstack Solutions</title>
+    <meta name="description" content="High-performance enterprise interfaces and secure CI/CD pipelines architected by Joseph Kwanusu.">
+
+    <style>
+        :root {
+            --stone-black: #050505;
+            --stone-gray: #121212;
+            --amber-radiant: #FFBF00;
+            --amber-muted: #B8860B;
+            --glass-bg: rgba(18, 18, 18, 0.75);
+            --glass-border: rgba(255, 191, 0, 0.15);
+            --text-high: #FFFFFF;
+            --text-low: #A0A0A0;
+            --border: #262626;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--stone-black);
+            color: var(--text-high);
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* GLASS NAVIGATION */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1.25rem 5%;
+        }
+
+        nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--amber-radiant);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-low);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        .nav-links a:hover { color: var(--amber-radiant); }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 5px rgba(255, 191, 0, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(255, 191, 0, 0.3); }
+            100% { box-shadow: 0 0 5px rgba(255, 191, 0, 0.1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        section {
+            padding: 120px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        section:nth-child(1) { animation-delay: 0.2s; }
+        section:nth-child(2) { animation-delay: 0.4s; }
+        section:nth-child(3) { animation-delay: 0.6s; }
+
+        /* HERO SECTION */
+        .hero { text-align: center; padding-top: 180px; }
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(180deg, #fff 30%, var(--amber-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* GLASS CARDS */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        
+        .solution-card { 
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            padding: 3rem; 
+            border-radius: 16px;
+            transition: var(--transition);
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--amber-radiant);
+            animation: pulseGlow 2s infinite;
+        }
+
+        /* ARCHITECTURE VISUAL */
+        .architecture-showcase .content-split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+        
+        .visual-block {
+            background: rgba(0, 0, 0, 0.4);
+            height: 400px;
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node {
+            width: 80px;
+            height: 80px;
+            border: 2px solid var(--amber-radiant);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            color: var(--amber-radiant);
+            animation: float 4s ease-in-out infinite;
+            background: var(--stone-black);
+            z-index: 2;
+        }
+
+        /* MENTORSHIP FEATURE LIST */
+        .mentorship-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+        .feature { 
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), transparent);
+            padding: 2rem;
+            border-radius: 12px;
+            border-left: 3px solid var(--amber-radiant);
+        }
+
+        /* CTA BUTTONS */
+        .cta-btn {
+            background: var(--amber-radiant);
+            color: #000;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: var(--transition);
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            margin-top: 8px;
+            
+        }
+        .cta-btn:hover { background: #fff; box-shadow: 0 10px 20px rgba(255, 191, 0, 0.3); }
+
+        /* FORM GLASSMORPHISM */
+        .form-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 4rem;
+            border-radius: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* WORKFLOW SPECIFIC STYLES */
+.workflow-container {
+    background: radial-gradient(circle at center, #121212 0%, #050505 100%);
+    overflow: hidden;
+}
+
+.workflow-visual {
+    position: relative;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
+
+/* CENTRAL GLOWING HUB */
+.central-hub {
+    position: relative;
+    z-index: 10;
+    width: 150px;
+    height: 150px;
+}
+
+.hub-content {
+    width: 100%;
+    height: 100%;
+    background: var(--stone-black);
+    border: 2px solid var(--amber-radiant);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 900;
+    color: var(--amber-radiant);
+    letter-spacing: 2px;
+    box-shadow: 0 0 30px rgba(255, 191, 0, 0.2);
+}
+
+.glow-ring {
+    position: absolute;
+    top: -20px; left: -20px; right: -20px; bottom: -20px;
+    border: 1px solid var(--amber-muted);
+    border-radius: 50%;
+    animation: pulseGlow 3s infinite ease-in-out;
+}
+
+/* FLOATING TOOL ICONS */
+.tool-icon {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-high);
+    transition: var(--transition);
+    animation: floatAround 10s infinite linear;
+}
+
+.tool-icon small {
+    font-size: 0.6rem;
+    margin-top: 5px;
+    color: var(--amber-muted);
+    text-transform: uppercase;
+}
+
+.tool-icon:hover {
+    border-color: var(--amber-radiant);
+    color: var(--amber-radiant);
+    transform: scale(1.1);
+    z-index: 20;
+}
+
+/* ANIMATION FOR GRID MOVEMENT */
+@keyframes floatAround {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(150px, -100px) rotate(5deg); }
+    50% { transform: translate(0px, -200px) rotate(-5deg); }
+    75% { transform: translate(-150px, -100px) rotate(5deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* INDIVIDUAL TIMING FOR NON-SYNCED MOVEMENT */
+.terraform { top: 20%; left: 15%; animation-duration: 12s; }
+.docker { top: 70%; left: 20%; animation-duration: 15s; animation-delay: -2s; }
+.k8s { top: 20%; right: 15%; animation-duration: 18s; animation-delay: -5s; }
+.trivy { top: 70%; right: 20%; animation-duration: 14s; animation-delay: -1s; }
+
+@keyframes pulseGlow {
+    0%, 100% { transform: scale(1); opacity: 0.3; box-shadow: 0 0 20px var(--amber-muted); }
+    50% { transform: scale(1.2); opacity: 0.6; box-shadow: 0 0 50px var(--amber-radiant); }
+}
+
+        input, select {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            padding: 1.2rem;
+            color: #fff;
+            border-radius: 8px;
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        input:focus { border-color: var(--amber-radiant); outline: none; background: rgba(0,0,0,0.5); }
+
+        footer { background: var(--stone-gray); padding: 80px 5% 40px; border-top: 1px solid var(--border); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; max-width: 1400px; margin: 0 auto; }
+
+        @media (max-width: 900px) {
+            .architecture-showcase .content-split, .mentorship-features, .footer-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+
+        :root {
+            --stone-black: #050505;
+            --stone-gray: #121212;
+            --amber-radiant: #FFBF00;
+            --amber-muted: #B8860B;
+            --glass-bg: rgba(18, 18, 18, 0.8);
+            --glass-border: rgba(255, 191, 0, 0.2);
+            --text-high: #FFFFFF;
+            --text-low: #A0A0A0;
+            --border: #262626;
+            --transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--stone-black);
+            color: var(--text-high);
+            font-family: 'Inter', system-ui, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- DEVSECOPS WORKFLOW SECTION --- */
+        .workflow-section {
+            padding: 100px 5%;
+            text-align: center;
+            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .section-header { margin-bottom: 80px; }
+        .section-header label {
+            color: var(--amber-radiant);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.75rem;
+        }
+
+        .viewport {
+            position: relative;
+            width: 600px;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* CENTRAL HUB */
+        .central-hub {
+            position: relative;
+            z-index: 10;
+            width: 180px;
+            height: 180px;
+            background: var(--stone-black);
+            border: 2px solid var(--amber-radiant);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 50px rgba(255, 191, 0, 0.15);
+        }
+
+        .central-hub img {
+            width: 80px;
+            filter: drop-shadow(0 0 10px var(--amber-radiant));
+        }
+
+        .central-hub span {
+            font-size: 0.7rem;
+            font-weight: 800;
+            margin-top: 10px;
+            color: var(--amber-radiant);
+            letter-spacing: 2px;
+        }
+
+        .hub-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid var(--amber-muted);
+            animation: pulse 3s infinite;
+        }
+
+      
+    /* Footer styling fix */
+    footer { 
+        background: var(--stone-gray); 
+        padding: 80px 5% 40px; 
+        border-top: 1px solid var(--border); 
+        margin-top: 100px;
+    }
+
+    .footer-bottom {
+        margin-top: 60px;
+        padding-top: 30px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--text-low);
+        font-size: 0.85rem;
+    }
+
+    .footer-bottom .legal-links {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .footer-bottom a {
+        color: var(--text-low);
+        text-decoration: none;
+        transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+        color: var(--amber-radiant);
+    }
+
+    @media (max-width: 768px) {
+        .footer-bottom {
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+        }
+    }
+
+/* ============================= */
+/* DEVSECOPS WORKFLOW SECTION */
+/* ============================= */
+
+.workflow-section{
+    padding: 100px 5%;
+    background: radial-gradient(circle at center, #111 0%, #050505 100%);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.viewport{
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    height: 550px;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    perspective: 1200px;
+}
+
+/* TRACK */
+
+.track-svg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.track-trench{
+    fill: none;
+    stroke: #000;
+    stroke-width: 20;
+    opacity: 0.5;
+}
+
+.track-rail{
+    fill: none;
+    stroke: #1a1a1a;
+    stroke-width: 12;
+}
+
+.track-flow{
+    fill: none;
+    stroke: var(--amber-radiant);
+    stroke-width: 2;
+    stroke-dasharray: 15, 30;
+    opacity: 0.4;
+
+    animation: flow 3s linear infinite;
+}
+
+@keyframes flow{
+    to{
+        stroke-dashoffset: -45;
+    }
+}
+
+/* CENTRAL HUB */
+
+.central-hub{
+    position: relative;
+    z-index: 10;
+
+    width: 170px;
+    height: 170px;
+
+    border-radius: 50%;
+
+    background: var(--stone-black);
+    border: 2px solid var(--amber-radiant);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 0 0 40px rgba(255,191,0,0.2);
+}
+
+.hub-glow{
+    position: absolute;
+    inset: -15px;
+
+    border-radius: 50%;
+    border: 1px solid rgba(255,191,0,0.3);
+
+    animation: pulseGlow 3s infinite;
+}
+
+.central-devops-logo{
+    width: 75px;
+    height: 75px;
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 10px rgba(255,191,0,0.45))
+        drop-shadow(0 0 25px rgba(255,191,0,0.25));
+
+    animation: centralFloat 4s ease-in-out infinite;
+}
+
+@keyframes centralFloat{
+    0%,100%{
+        transform: translateY(0px);
+    }
+
+    50%{
+        transform: translateY(-6px);
+    }
+}
+
+/* ORBIT CONTAINER */
+
+.orbit-container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* MOVING CARDS */
+
+.tool-node{
+    position: absolute;
+
+    width: 110px;
+    height: 100px;
+
+    padding: 12px;
+
+    border-radius: 14px;
+
+    background: linear-gradient(145deg, #1e1e1e, #0a0a0a);
+
+    border: 1px solid var(--glass-border);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.5);
+
+    animation: moveOnPath 32s linear infinite;
+
+    transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+
+    z-index: 5;
+}
+
+.tool-node:hover{
+    border-color: var(--amber-radiant);
+    box-shadow: 0 0 25px rgba(255,191,0,0.45);
+}
+
+/* CARD CONTENT */
+
+.tool-node .inner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* IMAGE INSIDE CARD */
+
+.tool-logo{
+    width: 42px;
+    height: 42px;
+
+    object-fit: contain;
+
+    margin-bottom: 8px;
+
+    filter: drop-shadow(0 0 6px rgba(255,191,0,0.25));
+}
+
+/* TEXT */
+
+.tool-node strong{
+    font-size: 0.75rem;
+    color: var(--text-high);
+}
+
+/* ORBIT ANIMATION */
+
+@keyframes moveOnPath{
+
+    0%{
+        top: 75px;
+        left: 105px;
+        transform: translate(-50%, -50%);
+    }
+
+    25%{
+        top: 75px;
+        left: 745px;
+        transform: translate(-50%, -50%);
+    }
+
+    50%{
+        top: 475px;
+        left: 745px;
+        transform: translate(-50%, -50%);
+    }
+
+    75%{
+        top: 475px;
+        left: 105px;
+        transform: translate(-50%, -50%);
+    }
+
+    100%{
+        top: 75px;
+        left: 105px;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* STAGGERED DELAYS */
+
+.n1{ animation-delay: 0s; }
+.n2{ animation-delay: -4s; }
+.n3{ animation-delay: -8s; }
+.n4{ animation-delay: -12s; }
+.n5{ animation-delay: -16s; }
+.n6{ animation-delay: -20s; }
+.n7{ animation-delay: -24s; }
+.n8{ animation-delay: -28s; }
+.n9{ animation-delay: -32s; }
+.n10{ animation-delay: -36s; }
+    </style>
+</head>
+<body>
+
+    <header role="banner">
+        <nav aria-label="Main Menu">
+            <a href="/" class="brand">TECHVISION</a>
+            <ul class="nav-links" role="menubar">
+                <li role="none"><a href="#solutions" role="menuitem">Solutions</a></li>
+                <li role="none"><a href="#architecture" role="menuitem">Architecture</a></li>
+                <li role="none"><a href="#mentorship" role="menuitem">Mentorship</a></li>
+                <li role="none"><a href="#contact" class="cta-btn">Consult Today</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        
+        <!-- HERO -->
+        <section class="hero" id="home">
+            <h1>Lead Architect & <br> Fullstack Engineer</h1>
+            <p>Developing high-performance enterprise interfaces and secure CI/CD pipelines in Nairobi.</p>
+            <div style="display: flex; gap: 1.5rem; justify-content: center; ">
+                <a href="#solutions" class="cta-btn">Explore Solutions</a>
+                <a href="#contact" style="background: transparent; border: 1px solid var(--border); color: #fff;" class="cta-btn">Get Started</a>
+            </div>
+        </section>
+
+        <!-- SOLUTIONS -->
+        <section id="solutions">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="font-size: 2.5rem;">Core Solutions</h2>
+            </div>
+            <div class="grid-container">
+                <div class="solution-card">
+                    <h3 style="color: var(--amber-radiant); margin-bottom: 1rem;">DevSecOps</h3>
+                    <p>Architecting secure CI/CD pipelines with Azure, Terraform, and Trivy scanning.</p>
+                </div>
+                <div class="solution-card">
+                    <h3 style="color: var(--amber-radiant); margin-bottom: 1rem;">Fullstack</h3>
+                    <p>Expertise in React, Tailwind CSS, and shadcn/ui for stone-and-amber enterprise UIs.</p>
+                </div>
+                <div class="solution-card">
+                    <h3 style="color: var(--amber-radiant); margin-bottom: 1rem;">PricePulse KE</h3>
+                    <p>Django-based price comparison engines with automated web scraping capabilities.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ARCHITECTURE -->
+        <section id="architecture" class="architecture-showcase">
+            <div class="content-split">
+                <div>
+                    <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">Lead Architecture</h2>
+                    <p style="color: var(--text-low); margin-bottom: 2rem;">As Lead Architect at OkotaPay, I design end-to-end management systems with Docker and OpenAPI integrations.</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.8rem;">
+                        <span style="background: var(--stone-gray); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border);">Kubernetes</span>
+                        <span style="background: var(--stone-gray); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border);">Infrastructure as Code</span>
+                        <span style="background: var(--stone-gray); padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.8rem; border: 1px solid var(--border);">Cloud Security</span>
+                    </div>
+                </div>
+                <div class="visual-block">
+                    <div class="node" style="left: -20px;">API</div>
+                    <div class="node" style="animation-delay: 1s;">CORE</div>
+                    <div class="node" style="right: -20px; animation-delay: 2s;">DB</div>
+                    <div style="position: absolute; width: 80%; height: 2px; background: var(--glass-border); z-index: 1;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- UPDATED DEVSECOPS LOOP WITH SVG ICONS -->
+<section class="workflow-section">
+<div class="viewport">
+        <svg class="track-svg" viewBox="0 0 850 550">
+            <rect x="105" y="75" width="640" height="400" class="track-trench" />
+            <rect x="105" y="75" width="640" height="400" class="track-rail" />
+            <rect x="105" y="75" width="640" height="400" class="track-flow" />
+        </svg>
+
+        <!-- Central Hub -->
+<div class="central-hub">
+    <div class="hub-glow"></div>
+
+    <img 
+        src="assets/images/dev-ops.png" 
+        alt="DevOps" 
+        class="central-devops-logo"
+    >
+
+    <span>LEAD ARCHITECT</span>
+</div>
+
+        <!-- Animated Nodes -->
+        <div class="orbit-container">
+
+            <!-- PLAN -->
+            <div class="tool-node n1">
+                <div class="inner">
+                    <img src="assets/images/azure-devops.jpg" alt="Azure DevOps" class="tool-logo">
+                    <strong>CI/CD</strong>
+                    <small>Azure DevOps</small>
+                </div>
+            </div>
+
+            <!-- SOURCE CONTROL -->
+            <div class="tool-node n2">
+                <div class="inner">
+                    <img src="assets/images/gitlab.png" alt="GitLab CI/CD" class="tool-logo">
+                    <strong>Pipeline</strong>
+                    <small>GitLab CI/CD</small>
+                </div>
+            </div>
+
+            <!-- INFRASTRUCTURE -->
+            <div class="tool-node n3">
+                <div class="inner">
+                    <img src="assets/images/terraform.png" alt="Terraform" class="tool-logo">
+                    <strong>IaC</strong>
+                    <small>Terraform</small>
+                </div>
+            </div>
+
+            <!-- CODE QUALITY -->
+            <div class="tool-node n4">
+                <div class="inner">
+                    <img src="assets/images/sonarqube.png" alt="SonarQube" class="tool-logo">
+                    <strong>Quality</strong>
+                    <small>SonarQube</small>
+                </div>
+            </div>
+
+            <!-- GITOPS -->
+            <div class="tool-node n5">
+                <div class="inner">
+                    <img src="assets/images/argocd.png" alt="ArgoCD" class="tool-logo">
+                    <strong>GitOps</strong>
+                    <small>ArgoCD</small>
+                </div>
+            </div>
+
+            <!-- KUBERNETES PACKAGING -->
+            <div class="tool-node n6">
+                <div class="inner">
+                    <img src="assets/images/helm.png" alt="Helm" class="tool-logo">
+                    <strong>Packages</strong>
+                    <small>Helm</small>
+                </div>
+            </div>
+
+            <!-- SECRETS -->
+            <div class="tool-node n7">
+                <div class="inner">
+                    <img src="assets/images/hashicorp.png" alt="Vault" class="tool-logo">
+                    <strong>Secrets</strong>
+                    <small>Vault</small>
+                </div>
+            </div>
+
+            <!-- INGRESS -->
+            <div class="tool-node n8">
+                <div class="inner">
+                    <img src="assets/images/nginx.png" alt="NGINX" class="tool-logo">
+                    <strong>Ingress</strong>
+                    <small>NGINX</small>
+                </div>
+            </div>
+
+            <!-- METRICS -->
+            <div class="tool-node n9">
+                <div class="inner">
+                    <img src="assets/images/prometheus.png" alt="Prometheus" class="tool-logo">
+                    <strong>Metrics</strong>
+                    <small>Prometheus</small>
+                </div>
+            </div>
+
+            <!-- LOGGING -->
+            <div class="tool-node n10">
+                <div class="inner">
+                    <img src="assets/images/loki.png" alt="Loki" class="tool-logo">
+                    <strong>Logs</strong>
+                    <small>Loki</small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+        <!-- MENTORSHIP -->
+        <section id="mentorship">
+            <div style="text-align: center; margin-bottom: 4rem;">
+                <h2 style="font-size: 2.5rem;">Technical Mentorship</h2>
+                <p style="color: var(--text-low);">Nurturing the next generation of Fullstack Engineers at Zindua School.</p>
+            </div>
+            <div class="mentorship-features">
+                <div class="feature">
+                    <h4>Roadmap Design</h4>
+                    <p>Creating industry-standard "Master Roadmaps" for student success.</p>
+                </div>
+                <div class="feature">
+                    <h4>Code Reviews</h4>
+                    <p>Providing professional feedback to students like Esther and Nancy.</p>
+                </div>
+                <div class="feature">
+                    <h4>Curriculum</h4>
+                    <p>Specialized training in Python and fullstack development architectures.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact">
+            <div class="form-container">
+                <h2 style="margin-bottom: 1rem; text-align: center;">Consult Today</h2>
+                <p style="text-align: center; color: var(--text-low); margin-bottom: 3rem;">Define your project scope for architectural audit or development.</p>
+                <form action="#">
+                    <div style="margin-bottom: 1.5rem;">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Your name">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label>Service Required</label>
+                        <select>
+                            <option>DevSecOps Pipeline Audit</option>
+                            <option>Fullstack Enterprise Build</option>
+                            <option>Technical Mentorship Roadmap</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="cta-btn" style="width: 100%; padding: 1.2rem;">Initialize Partnership</button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="brand">TECHVISION</div>
+            <p style="color: var(--text-low); margin-top: 1rem;">
+                Lead Architect: Joseph Kwanusu.<br>
+                Project Manager at OkotaPay.
+            </p>
+        </div>
+        <div>
+            <h4>Portfolio</h4>
+            <ul style="list-style: none; color: var(--text-low); margin-top: 1rem; line-height: 2;">
+                <li>LuxeRent</li>
+                <li>Innovet Tech</li>
+                <li>PricePulse KE</li>
+                <li>Smart Print Shop</li>
+            </ul>
+        </div>
+        <div>
+            <h4>Engagement</h4>
+            <p style="color: var(--text-low); margin-top: 1rem; line-height: 2;">
+                Nairobi, Kenya.<br>
+                Technical Mentor at Zindua School.
+            </p>
+        </div>
+    </div>
+
+    <!-- ADDED COPYRIGHT SECTION -->
+    <div class="footer-bottom">
+        <div class="copyright">
+            &copy; 2026 TechVision Solutions. Developed by Joseph Kwanusu. All rights reserved.
+        </div>
+        <div class="legal-links">
+            <a href="#architecture">Architectural Standards</a>
+            <a href="#mentorship">Mentorship Ethics</a>
+            <a href="#contact">Privacy Policy</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

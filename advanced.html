@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Visual Deep Dive</title>
+    <style>
+        /* Setup and Global Resets */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background-color: #0f172a;
+            color: #e2e8f0;
+            font-family: 'Inter', system-ui, sans-serif;
+            padding: 50px 20px;
+            line-height: 1.6;
+        }
+
+        .deep-dive-section {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 60px;
+            border: 1px solid #334155;
+            /* Ensures 3D animations don't clip through other sections */
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 { 
+            color: #38bdf8; 
+            margin-bottom: 20px; 
+            font-size: 2rem; 
+            border-bottom: 1px solid #334155; 
+            padding-bottom: 10px; 
+        }
+
+        .demo-box { 
+            margin: 25px 0; 
+            padding: 20px; 
+            border-radius: 8px; 
+            background: #0f172a; 
+        }
+
+        .explanation { 
+            background: #00000044; 
+            padding: 15px; 
+            border-left: 4px solid #38bdf8; 
+            font-size: 0.95rem; 
+            margin-top: 20px;
+        }
+
+        /* --- 1. Typography & Fonts --- */
+        .typo-sample {
+            font-family: "Georgia", serif;
+            font-size: 1.25rem;
+            font-weight: 300;
+            line-height: 2;
+            letter-spacing: 0.1em;
+            text-align: justify;
+            text-transform: uppercase;
+        }
+
+        /* --- 3. Colors & 4. Backgrounds --- */
+        .bg-demo {
+            height: 200px;
+            background: 
+                linear-gradient(45deg, rgba(56, 189, 248, 0.8), rgba(168, 85, 247, 0.8)),
+                url('assets/images/background.avif');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            border-radius: 8px;
+        }
+
+        /* --- 5. Shadows --- */
+        .shadow-deep-dive {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .box-demo {
+            height: 120px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .color-glow {
+            background: #1e293b;
+            color: #38bdf8;
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.4); 
+        }
+
+        .elevation-lift {
+            background: #2d3748;
+            border: 1px solid #4a5568; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .rim-light {
+            background: #1e293b;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 
+                        0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* --- 6. Glassmorphism --- */
+        .glass-area {
+            background: linear-gradient(to right, #f43f5e, #fbbf24);
+            padding: 60px;
+            border-radius: 12px;
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .glass-object {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Interactive Card Section */
+        .viewport {
+            background: url('assets/images/glass.avif');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            margin-bottom: 60px;
+            overflow: hidden; /* Keeps 3D flip within bounds */
+        }
+
+        .scene {
+            width: 350px;
+            height: 220px;
+            perspective: 1200px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .scene:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .glass-pane {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2);
+        }
+
+        .glass-pane-back {
+            transform: rotateY(180deg);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- 7. Stacking Context --- */
+        .stack-wrap { 
+            position: relative; 
+            height: 180px; 
+            margin-top: 25px; 
+        }
+        
+        .layer {
+            position: absolute; 
+            width: 100px; 
+            height: 100px; 
+            border: 2px solid white; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .l1 { background: #ef4444; z-index: 10; top: 0; left: 0; }
+        .l2 { background: #22c55e; z-index: 20; top: 30px; left: 40px; }
+        .l3 { background: #3b82f6; z-index: 5;  top: 60px; left: 80px; }
+
+        /* --- 8. Animation --- */
+        @keyframes slideAndRotate {
+            0% { transform: translateX(0) rotate(0deg); background: #38bdf8; }
+            50% { transform: translateX(150px) rotate(180deg); background: #a855f7; }
+            100% { transform: translateX(0) rotate(360deg); background: #38bdf8; }
+        }
+
+        .ani-box {
+            width: 80px; 
+            height: 80px; 
+            border-radius: 12px;
+            animation: slideAndRotate 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Section 1 & 2 -->
+    <div class="deep-dive-section">
+        <h2>1 & 2. Typography & Fonts</h2>
+        <div class="demo-box">
+            <p class="typo-sample">Precision in type creates hierarchy and mood.</p>
+        </div>
+        <div class="explanation">
+            <strong>Deep Dive:</strong><br>
+            • <b>Line-height:</b> Controls leading. A value of 2 means double-spacing.<br>
+            • <b>Letter-spacing:</b> Adjusts kerning for a modern, airy feel.<br>
+            • <b>Text-transform:</b> Handles casing without changing source HTML.
+        </div>
+    </div>
+
+    <!-- Section 3 & 4 -->
+    <div class="deep-dive-section">
+        <h2>3 & 4. Colors & Backgrounds</h2>
+        <div class="bg-demo">Layered Assets</div>
+        <div class="explanation">
+            <strong>Deep Dive:</strong><br>
+            • <b>Multiple Backgrounds:</b> Stack gradients over images using commas.<br>
+            • <b>RGBA:</b> Alpha (0 to 1) allows backgrounds to peak through colors[cite: 2].<br>
+            • <b>Size:</b> <code>cover</code> ensures the image fills without stretching[cite: 2].
+        </div>
+    </div>
+
+    <!-- Section 5 -->
+    <div class="deep-dive-section">
+        <h2>5. Box Shadows (Dark Mode Optimized)</h2>
+        <div class="shadow-deep-dive">
+            <div class="box-demo color-glow">Color Glow</div>
+            <div class="box-demo elevation-lift">Surface Lift</div>
+            <div class="box-demo rim-light">Rim Lighting</div>
+        </div>
+        <div class="explanation">
+            <strong>Deep Dive:</strong><br>
+            • <b>Color Glow:</b> Uses low-opacity accent colors instead of black for dark backgrounds[cite: 2].<br>
+            • <b>Surface Lift:</b> Lighter backgrounds create contrast for traditional shadows[cite: 2].<br>
+            • <b>Rim Light:</b> Inset shadows simulate light hitting the top edge[cite: 2].
+        </div>
+    </div>
+
+    <!-- Section 6 -->
+    <div class="deep-dive-section">
+        <h2>6. Glassmorphism</h2>
+        <div class="glass-area">
+            <div class="glass-object">Static Frost Effect</div>
+        </div>
+
+        <div class="viewport">
+            <div class="scene">
+                <div class="card-inner">
+                    <div class="glass-pane">
+                        <h2>Front Face</h2>
+                        <p>Hover to flip this pane in 3D space.</p>
+                    </div>
+                    <div class="glass-pane glass-pane-back">
+                        <h2>Back Face</h2>
+                        <p>Reverse side with Backdrop Blur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <strong>Deep Dive:</strong><br>
+            • <b>Backdrop-filter:</b> Blurs content <i>behind</i> the element[cite: 2].<br>
+            • <b>3D Flip:</b> Uses <code>perspective</code> on parent and <code>rotateY</code> on hover[cite: 2].
+        </div>
+    </div>
+
+    <!-- Section 7 -->
+    <div class="deep-dive-section">
+        <h2>7. Stacking Context (z-index)</h2>
+        <div class="stack-wrap">
+            <div class="layer l1">z: 10</div>
+            <div class="layer l2">z: 20</div>
+            <div class="layer l3">z: 5</div>
+        </div>
+        <div class="explanation">
+            <strong>Deep Dive:</strong><br>
+            • <b>Positioning:</b> z-index requires <code>relative</code>, <code>absolute</code>, or <code>fixed</code>[cite: 2].<br>
+            • <b>Stacking Order:</b> Higher numbers sit closer to the viewer[cite: 2].
+        </div>
+    </div>
+
+    <!-- Section 8 -->
+    <div class="deep-dive-section">
+        <h2>8. Animation</h2>
+        <div class="demo-box">
+            <div class="ani-box"></div>
+        </div>
+        <div class="explanation">
+            <strong>Deep Dive:</strong><br>
+            • <b>@keyframes:</b> Defines the specific stages of movement[cite: 2].<br>
+            • <b>cubic-bezier:</b> Fine-tunes the "feel" of the acceleration[cite: 2].
+        </div>
+    </div>
+
+</body>
+</html>

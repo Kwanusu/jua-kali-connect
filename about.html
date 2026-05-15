@@ -1,12 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>My First Web Page</title>
-    </head>
-    <body>
-        <h1>Hello World</h1>
-        <p>This is my first web page</p>
-    </body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mastering HTML: A Complete Student Guide</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+  </head>
+  <body>
+    <!-- the header section for navigation -->
+    <header>
+      <h1>Web Development Masterclass</h1>
+      <nav aria-label="Main Navigation">
+        <ul class="nav-list">
+          <li><a href="#links">Links</a></li>
+          <li><a href="#media">Media</a></li>
+          <li><a href="#tables">Tables</a></li>
+          <li><a href="#forms">Forms</a></li>
+          <li><a href="mailto:kwanusujoseph@gmail.com">Email Instructor</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+        <section id="links">
+            <h2> 1. Navigation & Pathing</h2>
+            <p>
+              <strong>Absolute Link</strong> points to an external site.
+              <a href="https://zinduaschool.com" target="_blank">Learn more</a>
+            </p>
+            
+            <p>
+              <strong>Relative  Link</strong> points to a resource or page within the same Website.
+              <a href="contact.html">Contact Us</a>
+            </p>
+            <p>
+              <strong>Internal  Link</strong> points to an internal resource in the same page.
+              <a href="#specialized">Jump to the Date & Color Picker</a>
+            </p>
+
+        </section>           
+        <!-- Multimedia -->
+        <section id="media">
+          <h2>Multimedia and Responsive Graphics</h2>
+          <h3>Responsive images</h3>
+          <p>The browser chooses the best image based on the device width</p>
+          <img src="assets/images/microsoft-copilot-71ig274jGpw-unsplash.jpg"
+              srcset="assets/images/coffee.jpg 300w, assets/images/desk.jpg 800w, assets/images/monitor.jpg 1200w"
+              sizes="(max-width: 600px) 100vw, 50vw"
+              alt="Student working on a project" width="300px" height="300px">
+
+           <h3>Image maps</h3>  
+           <img src="assets/images/desk.jpg"
+                usemap="#deskmap" 
+                alt="Desk" 
+                width="800" 
+                height="500">
+                <map name="deskmap">
+                  <!-- Rectangle area(x1, y1, x2, y2) -->
+                  <area shape="rect" 
+                        coords="34,44,270,350" 
+                        href="https://zinduaschool.com"
+                        target="_blank" 
+                        alt="coding school">
+                        <!-- Circular area (x, y, radius) -->
+                  <area shape="circle" 
+                        coords="337, 300, 44" 
+                        href="https://google.com" 
+                        target="_self" 
+                        alt="Search">      
+                </map> 
+                <!-- Video and audio -->
+                <h3>Audio & Video Players</h3>
+                <audio controls style="width: 100%; margin-bottom: 10px;">
+                    <source src="assets/audio/audio.mp3" type="audio/mpeg">
+                    Your browser does not support the audio tag.
+                </audio>
+
+                <!-- The 'poster' attribute below adds the thumbnail image -->
+                <video width="100%" controls 
+                    poster="./assets/images/mohammad-rahmani-oXlXu2qukGE-unsplash.jpg">
+                    <source src="assets/videos/promo5.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+        </section> 
+        <section id="forms">
+            <h2>4. Interactive Forms & Validation</h2>
+            <form action="#" method="POST" enctype="multipart/form-data">
+              <fieldset>
+                <legend><strong>Student Registration</strong></legend>
+                <div class="form-group">
+                  <label for="fname" id="fname" name="fname">Full Name:</label>
+                  <input type="text" required placeholder="Enter your full names"  id="fname" name="fname">
+                  <label for="DOB">Date Of Birth:</label>
+                  <input type="date">
+                  <p><strong>Preferred Track:</strong></p>
+                    <input type="radio" id="front" name="track" value="frontend" checked>
+                    <label for="front">Frontend</label>
+                    <input type="radio" id="back" name="track" value="backend">
+                    <label for="back">Backend</label>
+                </div>
+          <div class="form-group" style="margin-bottom: 15px;">
+            <label for="referral">How did you hear about us?</label>
+            <select id="referral" name="referral" style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                <option value="" disabled selected>Select an option</option>
+                <option value="social-media">Social Media</option>
+                <option value="friend">Friend/Colleague</option>
+                <option value="search">Search Engine</option>
+                <option value="other">Other</option>
+            </select>
+            <p><strong>Known Languages:</strong></p>
+        <input type="checkbox" id="html_s" name="skills" value="html">
+        <label for="html_s" style="display:inline;">HTML</label>
+        <input type="checkbox" id="css_s" name="skills" value="css">
+        <label for="css_s" style="display:inline;">CSS</label>
+        </div>
+        <label for="password">Password:</label>
+        <input type="password" placeholder="Enter your password" required>
+            <div class="form-group">
+                <label for="color">Choose Profile Color:</label>
+                <input type="color" id="color" name="color" value="#3498db">
+            </div>
+            <div class="form-group">
+                <label for="progress">Prior Experience Level (0-100):</label>
+                <input type="range" id="progress" name="progress" min="0" max="100" step="5">
+            </div>
+            <div class="form-group">
+            <label for="comments">Mentorship Goals:</label>
+            <textarea id="comments" 
+              name="comments" rows="5" cols="50" 
+              placeholder="Tell us what you hope to achieve..." 
+              style="width: 100%; border-radius: 4px; border: 1px solid #ccc;">
+          </textarea>
+        </div>
+
+        <button type="submit" 
+          style="margin-top:20px; padding: 10px 25px; background: #27ae60; 
+          color: white; border: none; 
+          border-radius: 5px; 
+          cursor: pointer;">
+            Submit Application
+        </button>
+        <input type="submit" 
+        >
+        </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+                  <div class="social-links">
+                <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+      <p>&copy; 20226. All rights reserved</p>
+    </footer>
+  </body>
 </html>
